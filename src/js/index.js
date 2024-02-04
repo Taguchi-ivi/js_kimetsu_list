@@ -48,11 +48,12 @@ const getData = async (name) => {
   return data
 }
 
-const allDataView = async() => {
+// name: all, kisatsutai, oni, hashira
+const dataView = async(name) => {
 
   deleteElement()
   setLoading('add')
-  const res = await getData('all')
+  const res = await getData(name)
   createElementUl()
   res.forEach((item) => {
     createItemList(item)
@@ -60,10 +61,12 @@ const allDataView = async() => {
   setLoading('remove')
 }
 
+document.addEventListener('DOMContentLoaded', dataView('all'))
 
-
-document.addEventListener('DOMContentLoaded', allDataView)
-
-document.addEventListener('click', () => {
-  console.log('hell world on change')
+document.addEventListener('click', (event) => {
+  const target = event.target.id
+  if (target === 'all') dataView('all')
+  if (target === 'kisatsutai') dataView('kisatsutai')
+  if (target === 'oni') dataView('oni')
+  if (target === 'hashira') dataView('hashira')
 })
